@@ -3,7 +3,7 @@ const semver = require('semver')
 const path = require('path')
 const gittags = require('git-tags')
 const Nodegit = require("nodegit")
-const { Tag, Remote, Cred } = Nodegit
+const { Tag, Reference, Remote, Cred } = Nodegit
 
 const gitrepo = path.resolve(__dirname, "../.git")
 const remoteRepo = `git@github.com:nodegit/${arg.name}.git`
@@ -31,14 +31,19 @@ gittags.latest((err, latest) => {
             return index.addAll('lib')
               .then(() => index.write())
               .then(() => index.writeTree())
-          })
-          .then(oid => {
+            })
+          .then(oidResult => {
+            oid = oidResult
+            return Reference.nameToId(repo, "HEAD")
+            })
+          .then(head => repo.getCommit(head))
+          .then(parent => {
             const sig = repo.defaultSignature()
             console.log('oid', oid)
-            return repo.createCommit("HEAD", sig, sig, msg, oid, [])
+            return repo.createCommit("HEAD", sig, sig, msg, oid, [parent])
           })
           .then(() => {
-            return Remote.create(repo, "origin", remoteRepo)
+            return repo.getRemote("origin")
             .then(remote => {
               return remote.push(["refs/heads/master:refs/heads/master"],
                 {
