@@ -1,0 +1,24 @@
+{
+  "name": "semver-test",
+  "version": "0.0.0",
+  "description": "Semantic versioning test",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "$(npm bin)/babel --ignore __tests__ -d lib src",
+    "release:major": "rm -rf lib && yarn build && node bin/release --release major"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tadjohnston/semver-test.git"
+  },
+  "dependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.25.0",
+    "git-tags": "^0.2.4",
+    "nodegit": "^0.18.3",
+    "react": "^15.6.1",
+    "semver": "^5.4.1",
+    "yargs": "^8.0.2"
+  }
+}

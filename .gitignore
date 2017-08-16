@@ -1,0 +1,16 @@
+node_modules
+yarn-error.log
+yarn-error.log*
+npm-debug.log
+npm-debug.log.*
+dist
+coverage
+*.orig
+.idea
+*.swp
+.DS_Store
+reports
+selenium.log
+temp
+.nyc_output/
+.#*
