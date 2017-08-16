@@ -12,6 +12,7 @@ let oid
 gittags.latest((err, latest) => {
   const tag = `v${semver.inc(latest, arg.release)}`
   const branch = `release-tag/${tag}`
+  const msg = `release branch tagged ${tag}`
 
   Nodegit.Repository.open(gitrepo)
     .then(repo => {
@@ -22,7 +23,7 @@ gittags.latest((err, latest) => {
           commit,
           0,
           repo.defaultSignature(),
-          "Created new-branch on HEAD"
+          msg
         )
         .then(commit => {
           repo.checkoutBranch(branch)
@@ -45,6 +46,7 @@ gittags.latest((err, latest) => {
           .then(() => {
             return repo.getRemote("origin")
             .then(remote => {
+              console.log('push')
               return remote.push(["refs/heads/master:refs/heads/master"],
                 {
                   callbacks: {
@@ -57,7 +59,7 @@ gittags.latest((err, latest) => {
         })
       })
     }).done(function() {
-      console.log(`Created release branch with tag ${tag}`)
+      console.log(`done, ${msg}`)
     }
   )
 })
