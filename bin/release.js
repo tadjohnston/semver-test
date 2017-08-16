@@ -6,7 +6,7 @@ const Nodegit = require("nodegit")
 const { Tag, Reference, Remote, Cred } = Nodegit
 
 const gitrepo = path.resolve(__dirname, "../.git")
-const remoteRepo = `git@github.com:nodegit/${arg.name}.git`
+const remoteRepo = `git@github.com:tadjohnston/${arg.name}.git`
 let oid
 
 gittags.latest((err, latest) => {

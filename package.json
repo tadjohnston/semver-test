@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "build": "$(npm bin)/babel --ignore __tests__ -d lib src",
-    "release:major": "rm -rf lib && yarn build && node bin/release --release major"
+    "release:major": "rm -rf lib && yarn build && node bin/release --release major --name semver"
   },
   "repository": {
     "type": "git",
