@@ -27,11 +27,14 @@ gittags.latest((err, latest) => {
         .then(commit => {
           repo.checkoutBranch(branch)
           .then(() => repo.refreshIndex())
-          .then(index => index.addAll())
-          .then(index => index.write())
-          .then(() => index.writeTree())
+          .then(index => {
+            return index.addAll('lib')
+              .then(() => index.write())
+              .then(() => index.writeTree())
+          })
           .then(oid => {
             const sig = repo.defaultSignature()
+            console.log('oid', oid)
             return repo.createCommit("HEAD", sig, sig, msg, oid, [])
           })
           .then(() => {
